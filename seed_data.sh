@@ -7,14 +7,13 @@ python manage.py migrate
 # load first three in order
 python manage.py loaddata users
 python manage.py loaddata tokens
-# replace customers with app_users
-python manage.py loaddata customers
+python manage.py loaddata appUser
 # replace data tables with app models
-python manage.py loaddata product_category
-python manage.py loaddata product
-python manage.py loaddata customerproductlike
-python manage.py loaddata productrating
-python manage.py loaddata payment
-python manage.py loaddata order
-python manage.py loaddata order_product
-python manage.py loaddata favoritesellers
+python manage.py loaddata reflection
+python manage.py loaddata priority
+python manage.py loaddata resources
+python manage.py loaddata motivation
+python manage.py loaddata post
+python manage.py loaddata comment
+python manage.py loaddata reaction
+python manage.py loaddata postreaction
