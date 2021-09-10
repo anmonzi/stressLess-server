@@ -1,0 +1,22 @@
+[
+    {
+        "model": "stresslessapi.comment",
+        "pk": 1,
+        "fields": {
+            "post": 1,
+            "app_user": 1,
+            "content": "So happy this app launched!",
+            "created_on": "2021-09-09"
+        }
+    },
+    {
+        "model": "stresslessapi.comment",
+        "pk": 2,
+        "fields": {
+            "post": 1,
+            "app_user": 1,
+            "content": "Can't wait to see how this app helps YOU!",
+            "created_on": "2021-09-10"
+        }
+    }
+]

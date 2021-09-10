@@ -1,0 +1,24 @@
+[
+    {
+        "model": "stresslessapi.post",
+        "pk": 1,
+        "fields": {
+            "app_user": 1,
+            "title": "Welcome to StressLess",
+            "content": "This is the very first post!",
+            "image_url": "",
+            "publication_date": "2021-09-09"
+        }
+    },
+    {
+        "model": "stresslessapi.post",
+        "pk": 2,
+        "fields": {
+            "app_user": 1,
+            "title": "On the way to a better you",
+            "content": "We hope this app helps you set priorities you want to focus on for more self-care.",
+            "image_url": "",
+            "publication_date": "2021-09-10"
+        }
+    }
+]
