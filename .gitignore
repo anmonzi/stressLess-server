@@ -145,4 +145,3 @@ cython_debug/
 migrations
 docs
 Pipfile.lock
-PULL_REQUEST_TEMPLATE.md
