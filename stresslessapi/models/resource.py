@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Resources(models.Model):
+class Resource(models.Model):
     """Resource Model"""
     app_user = models.ForeignKey("AppUser", on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
