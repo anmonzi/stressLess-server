@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 class AppUser(models.Model):
     """StressLess app user model"""
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    bio = models.CharField(max_length=50)
+    bio = models.TextField()
     image_url = models.TextField()
 
     @property
