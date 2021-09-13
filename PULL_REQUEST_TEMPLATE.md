@@ -1,5 +1,3 @@
-Description of PR that completes issue here...
-
 ## Changes
 
 - Item 1
@@ -7,8 +5,6 @@ Description of PR that completes issue here...
 - Item 3
 
 ## Requests / Responses
-
-If this PR contains code that defines a new request/response, or changes an existing one, please put the JSON representations here.
 
 **Request**
 
@@ -39,14 +35,11 @@ HTTP/1.1 201 OK
 
 ## Testing
 
-Description of how to test code...
-
-- [ ] Run migrations
-- [ ] Run test suite
-- [ ] Seed database
+- [ ] git fetch --all and checkout to branch ` `
+- [ ] Run 
+- [ ] Seed 
 
 
 ## Related Issues
 
-- Fixes #85
 - Fixes #22

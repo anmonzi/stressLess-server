@@ -1,0 +1,22 @@
+[
+    {
+        "model": "stresslessapi.priority",
+        "pk": 1,
+        "fields": {
+            "app_user_id": 1,
+            "content": "I'd like to drink at LEAST three bottles of water today.",
+            "created_on": "2021-09-10",
+            "completed": false
+        }
+    },
+    {
+        "model": "stresslessapi.priority",
+        "pk": 2,
+        "fields": {
+            "app_user_id": 1,
+            "content": "Instead of scrolling Instagram on lunch, I'd like to get outside and walk.",
+            "created_on": "2021-09-10",
+            "completed": false
+        }
+    }
+]

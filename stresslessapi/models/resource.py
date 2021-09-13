@@ -7,4 +7,4 @@ class Resource(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
     source_link = models.TextField()
-    created_on = models.DateTimeField()
+    created_on = models.DateField()

@@ -1,0 +1,22 @@
+[
+    {
+        "model": "stresslessapi.motivation",
+        "pk": 1,
+        "fields": {
+            "app_user_id": 1,
+            "title": "Are you following your progress with a BUT?",
+            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Morbi tristique senectus et netus et malesuada fames ac.",
+            "created_on": "2021-09-10"
+        }
+    },
+    {
+        "model": "stresslessapi.motivation",
+        "pk": 2,
+        "fields": {
+            "app_user_id": 1,
+            "title": "Life Changes. Do your expectations reflect that?",
+            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Morbi tristique senectus et netus et malesuada fames ac.",
+            "created_on": "2021-09-11"
+        }
+    }
+]

@@ -5,5 +5,5 @@ class Priority(models.Model):
     """Priority Model"""
     app_user = models.ForeignKey("AppUser", on_delete=models.CASCADE)
     content = models.TextField()
-    created_on = models.DateTimeField()
+    created_on = models.DateField()
     completed = models.BooleanField()
