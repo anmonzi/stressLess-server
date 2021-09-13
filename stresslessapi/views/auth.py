@@ -59,8 +59,8 @@ def register_user(request):
     # Now save the extra info in the stresslessapi_AppUser table
     app_user = AppUser.objects.create(
         bio=request.data['bio'],
-        user=new_user,
-        image_url=""
+        image_url=request.data['image_url'],
+        user=new_user
     )
 
     # Use the REST Framework's token generator on the new user account
