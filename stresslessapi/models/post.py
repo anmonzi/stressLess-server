@@ -7,7 +7,7 @@ class Post(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
     image_url = models.TextField()
-    publication_date = models.DateField()
+    publication_date = models.DateTimeField()
 
     @property
     def owner(self):

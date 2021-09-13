@@ -1,0 +1,24 @@
+[
+    {
+        "model": "stresslessapi.resource",
+        "pk": 1,
+        "fields": {
+            "app_user_id": 1,
+            "title": "How Stress Affects Your Body",
+            "content": "This is a really good read that speaks about stress is a non-scientific way.",
+            "source_link": "https://www.geisinger.org/health-and-wellness/wellness-articles/2020/02/06/21/08/how-stress-affects-your-body",
+            "created_on": "2021-09-10"
+        }
+    },
+    {
+        "model": "stresslessapi.resource",
+        "pk": 2,
+        "fields": {
+            "app_user_id": 1,
+            "title": "Spend Time in Nature to Reduce Stress and Anxiety",
+            "content": "A really good article written by the American Heart Association about how nature can impact your mood and reduce stress and anxiety!",
+            "source_link": "https://www.heart.org/en/healthy-living/healthy-lifestyle/stress-management/spend-time-in-nature-to-reduce-stress-and-anxiety",
+            "created_on": "2021-09-10"
+        }
+    }
+]

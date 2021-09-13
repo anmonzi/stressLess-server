@@ -1,0 +1,11 @@
+[
+    {
+        "model": "stresslessapi.postreaction",
+        "pk": 1,
+        "fields": {
+            "app_user_id": 1,
+            "post_id": 1,
+            "reaction_id": 1
+        }
+    }
+]

@@ -4,7 +4,8 @@
         "pk": 1,
         "fields": {
             "user": 1,
-            "bio": "Welcome to StressLess. I'm the creator and moderator of this application."
+            "bio": "Welcome to StressLess. I'm the creator and moderator of this application.",
+            "image_url": ""
         }
     }
 ]

@@ -1,0 +1,11 @@
+[
+    {
+        "model": "stresslessapi.reflection",
+        "pk": 1,
+        "fields": {
+            "app_user_id": 1,
+            "content": "Today I said NO and it felt really good!",
+            "created_on": "2021-09-09T13:40:27.172Z"
+        }
+    }
+]
