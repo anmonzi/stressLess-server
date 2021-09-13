@@ -7,13 +7,13 @@ python manage.py migrate
 # load first three in order
 python manage.py loaddata users
 python manage.py loaddata tokens
-python manage.py loaddata appUser
+python manage.py loaddata appUsers
 # replace data tables with app models
-python manage.py loaddata reflection
-python manage.py loaddata priority
+python manage.py loaddata reflections
+python manage.py loaddata priorities
 python manage.py loaddata resources
-python manage.py loaddata motivation
-python manage.py loaddata post
-python manage.py loaddata comment
-python manage.py loaddata reaction
-python manage.py loaddata postreaction
+python manage.py loaddata motivations
+python manage.py loaddata posts
+python manage.py loaddata comments
+python manage.py loaddata reactions
+python manage.py loaddata postreactions
