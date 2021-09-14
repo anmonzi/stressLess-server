@@ -17,11 +17,13 @@ from django.contrib import admin
 from django.conf.urls import include
 from django.urls import path
 from rest_framework import routers
-from stresslessapi.views import login_user, register_user, Profile
+from stresslessapi.views import login_user, register_user, Profile, PriorityView
 
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'profile', Profile, 'profile')
+router.register(r'priorities', PriorityView, 'priority')
+
 
 urlpatterns = [
     path('register', register_user),
