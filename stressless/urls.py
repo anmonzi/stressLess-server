@@ -17,14 +17,16 @@ from django.contrib import admin
 from django.conf.urls import include
 from django.urls import path
 from rest_framework import routers
-from stresslessapi.views import login_user, register_user
+from stresslessapi.views import login_user, register_user, Profile
 
 
 router = routers.DefaultRouter(trailing_slash=False)
+router.register(r'profile', Profile, 'profile')
 
 urlpatterns = [
     path('register', register_user),
     path('login', login_user),
+    path('', include(router.urls)),
     path('api-auth', include('rest_framework.urls', namespace='rest_framework')),
     path('admin/', admin.site.urls),
 ]
