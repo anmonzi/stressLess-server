@@ -44,6 +44,22 @@ class PriorityView(ViewSet):
         except ValidationError as ex:
             return Response({"reason": ex.message}, status=status.HTTP_400_BAD_REQUEST)
 
+    def retrieve(self, request, pk=None):
+        """"Handle GET request for single priority"""
+        try:
+            # `pk` is a parameter to this function, and
+            # Django parses it from the URL route parameter
+            #   http://localhost:8000/priorities/2/edit
+            #
+            # The `2` at the end of the route becomes `pk`
+            priority = Priority.objects.get(pk=pk)
+            serializer = PrioritySerializer(priority, context={'request': request})
+            return Response(serializer.data)
+        except Priority.DoesNotExist as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as ex:
+            return HttpResponseServerError(ex)
+
 
     def update(self, request, pk=None):
         """Handle PUT rquests sent for a priority"""
