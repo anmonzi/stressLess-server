@@ -80,7 +80,7 @@ class PriorityView(ViewSet):
 
 
     def destroy(self, request, pk=None):
-        """Handle DELETE reuests for a single priority"""
+        """Handle DELETE requests for a single priority"""
         # grab priority to be deleted by pk
         try:
             priority = Priority.objects.get(pk=pk)
