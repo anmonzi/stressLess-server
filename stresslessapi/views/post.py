@@ -16,7 +16,8 @@ class PostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = "__all__"
+        fields = ('id', 'app_user', 'title', 'content',
+            'image_url', 'publication_date', 'owner')
 
 
 class PostView(ViewSet):
@@ -94,21 +95,21 @@ class PostView(ViewSet):
         except Exception as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-    
+
     def list(self, request):
         """"Handle GET requests to posts"""
         # verify user and who is making put request
         app_user = AppUser.objects.get(user=request.auth.user)
 
         # get all posts from the database (works 9/15)
-        posts = Post.objects.all()
+        # posts = Post.objects.all()
 
         # get all priorities from the database that correspond to the current user
-        # posts = Post.objects.annotate(owner=Case(
-        #                                         When(app_user=app_user, then=True),
-        #                                         default=False,
-        #                                         output_field=BooleanField()
-        #                                     ))
+        posts = Post.objects.annotate(owner=Case(
+                                                When(app_user=app_user, then=True),
+                                                default=False,
+                                                output_field=BooleanField()
+                                            ))
 
         serializer = PostSerializer(
             posts, many=True, context={'request': request})
