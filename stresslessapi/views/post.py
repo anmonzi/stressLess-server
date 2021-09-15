@@ -1,4 +1,4 @@
-"""View module for handling requests about user priorities"""
+"""View module for handling requests about user posts"""
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from rest_framework import status
@@ -8,86 +8,88 @@ from rest_framework.response import Response
 from django.db.models.fields import BooleanField
 from rest_framework import serializers
 from django.db.models import Case, When
-from stresslessapi.models import Priority, AppUser
+from stresslessapi.models import Post, AppUser
 
 
-class PrioritySerializer(serializers.ModelSerializer):
-    """JSON serializer for priorites"""
+class PostSerializer(serializers.ModelSerializer):
+    """JSON serializer for posts"""
 
     class Meta:
-        model = Priority
-        fields = ('id', 'app_user', 'content',
-          'created_on', 'completed', 'owner')
-        depth = 1
+        model = Post
+        fields = ('id', 'app_user', 'title', 'content',
+            'image_url', 'publication_date', 'owner')
 
 
-class PriorityView(ViewSet):
-    """StressLess priorities viewset for create, read, update, delete"""
+class PostView(ViewSet):
+    """StressLess posts viewset for complete CRUD"""
 
     def create(self, request):
-        """Handle POST operations for priorities"""
+        """Handle POST operations for new posts"""
 
         # verify user and who is making post request
         app_user = AppUser.objects.get(user=request.auth.user)
 
-        # create new instance of priority
-        priority = Priority()
-        priority.app_user = app_user
-        priority.content = request.data["content"]
-        priority.created_on = request.data["createdOn"]
-        priority.completed = request.data["completed"]
+        # create new instance of post
+        post = Post()
+        post.app_user = app_user
+        post.title = request.data["title"]
+        post.content = request.data["content"]
+        post.image_url = request.data["imageURL"]
+        post.publication_date = request.data["publicationDate"]
 
         try:
-            priority.save()
-            serializer = PrioritySerializer(priority, context={'request': request})
+            post.save()
+            serializer = PostSerializer(post, context={'request': request})
             return Response(serializer.data)
         except ValidationError as ex:
             return Response({"reason": ex.message}, status=status.HTTP_400_BAD_REQUEST)
 
+
     def retrieve(self, request, pk=None):
-        """"Handle GET request for single priority"""
+        """Handle GET request for single post"""
         try:
             # `pk` is a parameter to this function, and
             # Django parses it from the URL route parameter
             #   http://localhost:8000/priorities/2
             #
             # The `2` at the end of the route becomes `pk`
-            priority = Priority.objects.get(pk=pk)
-            serializer = PrioritySerializer(priority, context={'request': request})
+            post = Post.objects.get(pk=pk)
+            serializer = PostSerializer(post, context={'request': request})
             return Response(serializer.data)
-        except Priority.DoesNotExist as ex:
+        except Post.DoesNotExist as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
         except Exception as ex:
             return HttpResponseServerError(ex)
 
 
     def update(self, request, pk=None):
-        """Handle PUT request sent for a priority"""
+        """Handle PUT request sent for a post"""
 
         # verify user and who is making put request
         app_user = AppUser.objects.get(user=request.auth.user)
 
-        # grab priority to be updated by pk
-        priority = Priority.objects.get(pk=pk)
-        priority.app_user = app_user
-        priority.content = request.data["content"]
-        priority.created_on = request.data["createdOn"]
-        priority.completed = request.data["completed"]
+        # grab post to be updated by pk
+        post = Post.objects.get(pk=pk)
+        post.app_user = app_user
+        post.title = request.data["title"]
+        post.content = request.data["content"]
+        post.image_url = request.data["imageURL"]
+        post.publication_date = request.data["publicationDate"]
 
-        priority.save()
+        post.save()
 
         return Response({}, status=status.HTTP_204_NO_CONTENT)
 
 
     def destroy(self, request, pk=None):
-        """Handle DELETE requests for a single priority"""
-        # grab priority to be deleted by pk
+        """Handle DELETE requests for a single post"""
+        # grab post to be deleted by pk
         try:
-            priority = Priority.objects.get(pk=pk)
-            priority.delete()
+            post = Post.object.get(pk=pk)
+            post.delete()
             return Response({}, status=status.HTTP_204_NO_CONTENT)
 
-        except Priority.DoesNotExist as ex:
+        except Post.DoesNotExist as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
 
         except Exception as ex:
@@ -95,20 +97,20 @@ class PriorityView(ViewSet):
 
 
     def list(self, request):
-        """Handle GET requests to priorities"""
+        """"Handle GET requests to posts"""
         # verify user and who is making put request
         app_user = AppUser.objects.get(user=request.auth.user)
 
-        # get all priorities from the database (works 9/14)
-        # priorities = Priority.objects.all()
+        # get all posts from the database (works 9/15)
+        # posts = Post.objects.all()
 
         # get all priorities from the database that correspond to the current user
-        priorities = Priority.objects.annotate(owner=Case(
+        posts = Post.objects.annotate(owner=Case(
                                                 When(app_user=app_user, then=True),
                                                 default=False,
                                                 output_field=BooleanField()
                                             ))
 
-        serializer = PrioritySerializer(
-            priorities, many=True, context={'request': request})
+        serializer = PostSerializer(
+            posts, many=True, context={'request': request})
         return Response(serializer.data)
