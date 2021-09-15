@@ -49,7 +49,7 @@ class PriorityView(ViewSet):
         try:
             # `pk` is a parameter to this function, and
             # Django parses it from the URL route parameter
-            #   http://localhost:8000/priorities/2/edit
+            #   http://localhost:8000/priorities/2
             #
             # The `2` at the end of the route becomes `pk`
             priority = Priority.objects.get(pk=pk)
@@ -62,7 +62,7 @@ class PriorityView(ViewSet):
 
 
     def update(self, request, pk=None):
-        """Handle PUT rquests sent for a priority"""
+        """Handle PUT request sent for a priority"""
 
         # verify user and who is making put request
         app_user = AppUser.objects.get(user=request.auth.user)
