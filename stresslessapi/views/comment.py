@@ -20,11 +20,13 @@ class CommentAppUserSerializer(serializers.ModelSerializer):
 
 class CommentSerializer(serializers.ModelSerializer):
     """JSON serializer for comments"""
-
+    app_user = CommentAppUserSerializer(many=False)
+    
     class Meta:
         model = Comment
         fields = ('id', 'post_id', 'app_user', 'content',
                     'created_on', 'owner')
+        depth = 1
 
 class CommentView(ViewSet):
     """StressLess comment viewset for complete CRUD"""
