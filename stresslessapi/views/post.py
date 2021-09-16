@@ -85,7 +85,7 @@ class PostView(ViewSet):
         """Handle DELETE requests for a single post"""
         # grab post to be deleted by pk
         try:
-            post = Post.object.get(pk=pk)
+            post = Post.objects.get(pk=pk)
             post.delete()
             return Response({}, status=status.HTTP_204_NO_CONTENT)
 
