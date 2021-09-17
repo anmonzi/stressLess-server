@@ -11,8 +11,16 @@ from django.db.models import Case, When, Count
 from stresslessapi.models import Post, AppUser, Comment
 
 
+class PostAppUserSerializer(serializers.ModelSerializer):
+    """JSON serializer for comment owner"""
+
+    class Meta:
+        model = AppUser
+        fields = ('id', 'full_name')
+
 class PostSerializer(serializers.ModelSerializer):
     """JSON serializer for posts"""
+    app_user = PostAppUserSerializer(many=False)
 
     class Meta:
         model = Post
