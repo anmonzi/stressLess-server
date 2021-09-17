@@ -7,8 +7,8 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from django.db.models.fields import BooleanField
 from rest_framework import serializers
-from django.db.models import Case, When
-from stresslessapi.models import Post, AppUser
+from django.db.models import Case, When, Count
+from stresslessapi.models import Post, AppUser, Comment
 
 
 class PostSerializer(serializers.ModelSerializer):
@@ -17,7 +17,7 @@ class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = ('id', 'app_user', 'title', 'content',
-            'image_url', 'publication_date', 'owner')
+            'image_url', 'publication_date', 'owner', 'comment_count')
 
 
 class PostView(ViewSet):
@@ -105,7 +105,7 @@ class PostView(ViewSet):
         # posts = Post.objects.all()
 
         # get all priorities from the database that correspond to the current user
-        posts = Post.objects.annotate(owner=Case(
+        posts = Post.objects.annotate(comment_count=Count('comment'), owner=Case(
                                                 When(app_user=app_user, then=True),
                                                 default=False,
                                                 output_field=BooleanField()

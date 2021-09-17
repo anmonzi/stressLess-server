@@ -17,3 +17,11 @@ class Post(models.Model):
     @owner.setter
     def owner(self, value):
         self.__owner = value
+
+    @property
+    def comment_count(self):
+        return self.__comment_count
+
+    @comment_count.setter
+    def comment_count(self, value):
+        self.__comment_count = value
