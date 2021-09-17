@@ -21,7 +21,7 @@ class CommentAppUserSerializer(serializers.ModelSerializer):
 class CommentSerializer(serializers.ModelSerializer):
     """JSON serializer for comments"""
     app_user = CommentAppUserSerializer(many=False)
-    
+
     class Meta:
         model = Comment
         fields = ('id', 'post_id', 'app_user', 'content',
@@ -104,14 +104,14 @@ class CommentView(ViewSet):
         # verify user and who is making put request
         app_user = AppUser.objects.get(user=request.auth.user)
         # get all comments from the database (works 9/15)
-        comments = Comment.objects.all()
+        # comments = Comment.objects.all()
 
         # get all comments from the database that correspond to the current user
-        # comments = Comment.objects.annotate(owner=Case(
-        #                                         When(app_user=app_user, then=True),
-        #                                         default=False,
-        #                                         output_field=BooleanField()
-        #                                     ))
+        comments = Comment.objects.annotate(owner=Case(
+                                                When(app_user=app_user, then=True),
+                                                default=False,
+                                                output_field=BooleanField()
+                                            ))
 
         post = self.request.query_params.get('postId', None)
         if post is not None:
