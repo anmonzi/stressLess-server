@@ -8,6 +8,7 @@ class Post(models.Model):
     content = models.TextField()
     image_url = models.TextField()
     publication_date = models.DateTimeField()
+    reactions = models.ManyToManyField("Reaction", through="PostReaction")
 
     @property
     def owner(self):
@@ -25,3 +26,4 @@ class Post(models.Model):
     @comment_count.setter
     def comment_count(self, value):
         self.__comment_count = value
+

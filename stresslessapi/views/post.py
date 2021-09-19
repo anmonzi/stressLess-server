@@ -7,8 +7,9 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from django.db.models.fields import BooleanField
 from rest_framework import serializers
+from rest_framework.decorators import action
 from django.db.models import Case, When, Count
-from stresslessapi.models import Post, AppUser, Comment
+from stresslessapi.models import Post, AppUser, Comment, Reaction
 
 
 class PostAppUserSerializer(serializers.ModelSerializer):
@@ -25,7 +26,8 @@ class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = ('id', 'app_user', 'title', 'content',
-            'image_url', 'publication_date', 'owner', 'comment_count')
+            'image_url', 'publication_date', 'owner', 'comment_count', 'reactions')
+        depth = 1
 
 
 class PostView(ViewSet):
