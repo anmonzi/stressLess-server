@@ -22,7 +22,7 @@ class PostReactionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = PostReaction
-        fields = ('id', 'app_user', 'post', 'reaction')
+        fields = ('id', 'app_user', 'post', 'reaction',)
 
 
 class PostReactionView(ViewSet):
