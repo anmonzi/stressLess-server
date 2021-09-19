@@ -5,3 +5,4 @@ from .reflection import ReflectionView
 from .post import PostView
 from .comment import CommentView
 from .reaction import ReactionView
+from .post_reaction import PostReactionView

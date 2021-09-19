@@ -20,7 +20,8 @@ from rest_framework import routers
 from stresslessapi.views import (login_user, register_user,
     Profile, PriorityView,
     ReflectionView, PostView,
-    CommentView, ReactionView)
+    CommentView, ReactionView,
+    PostReactionView)
 
 
 
@@ -32,6 +33,7 @@ router.register(r'reflections', ReflectionView, 'reflection')
 router.register(r'posts', PostView, 'post')
 router.register(r'comments', CommentView, 'comment')
 router.register(r'reactions', ReactionView, 'reaction')
+router.register(r'post_reactions', PostReactionView, 'post_reaction')
 
 
 urlpatterns = [
