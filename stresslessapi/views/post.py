@@ -27,7 +27,7 @@ class PostSerializer(serializers.ModelSerializer):
         model = Post
         fields = ('id', 'app_user', 'title', 'content',
             'image_url', 'publication_date', 'owner',
-            'comment_count', 'reactions', 'reaction_counter')
+            'comment_count', 'reactions', 'reactions_count')
         depth = 1
 
 
@@ -117,12 +117,12 @@ class PostView(ViewSet):
 
         # get all priorities from the database that correspond to the current user
         posts = Post.objects.annotate(comment_count=Count('comment'),
-                                        reaction_counter=Count('reactions'),
                                         owner=Case(
                                         When(app_user=app_user, then=True),
                                         default=False,
                                         output_field=BooleanField()
-                                            ))
+                                            ),
+                                        reactions_count=Count('reactions'))
 
         serializer = PostSerializer(
             posts, many=True, context={'request': request})

@@ -28,10 +28,10 @@ class Post(models.Model):
         self.__comment_count = value
 
     @property
-    def reaction_counter(self):
-        return self.__reaction_counter
+    def reactions_count(self):
+        return self.__reactions_count
 
-    @reaction_counter.setter
-    def reaction_counter(self, value):
-        self.__reaction_counter = value
+    @reactions_count.setter
+    def reactions_count(self, value):
+        self.__reactions_count = value
 
