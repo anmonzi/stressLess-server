@@ -1,4 +1,4 @@
-"""View module for handling requests about user profile"""
+"""View module for handling requests about resources"""
 from django.contrib.auth.models import User
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
