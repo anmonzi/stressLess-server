@@ -10,7 +10,7 @@ class UserSerializer(serializers.ModelSerializer):
     """JSON serializer for users"""
     class Meta:
         model = User
-        fields = ('username', 'email', 'is_active', 'date_joined', 
+        fields = ('username', 'email', 'is_active', 'date_joined',
             'last_login', 'is_staff')
 
 
