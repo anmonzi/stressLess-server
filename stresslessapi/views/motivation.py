@@ -21,7 +21,8 @@ class MotivationView(ViewSet):
         # verify user and who is making request
         app_user = AppUser.objects.get(user=request.auth.user)
 
-        motivations = Motivation.objects.all()
+        motivations = Motivation.objects.all().order_by('-id')[0]
 
-        serializer = MotivationSerializer(motivations, many=True, context={'request': request})
+
+        serializer = MotivationSerializer(motivations, many=False, context={'request': request})
         return Response(serializer.data)
