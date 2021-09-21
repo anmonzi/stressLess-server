@@ -29,7 +29,7 @@ class AppUserView(ViewSet):
     def list(self, request):
         """Handle GET requests to app user resource"""
 
-        # verify user and who is making put request
+        # verify user and who is making request
         app_user = AppUser.objects.get(user=request.auth.user)
 
         users = AppUser.objects.all()
