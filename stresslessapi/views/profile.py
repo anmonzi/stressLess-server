@@ -10,7 +10,7 @@ class UserSerializer(serializers.ModelSerializer):
     """JSON serializer for users"""
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'email',)
+        fields = ('first_name', 'last_name', 'email', 'date_joined')
 
 
 class AppUserSerializer(serializers.ModelSerializer):
@@ -19,7 +19,7 @@ class AppUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AppUser
-        fields = ('user', 'full_name')
+        fields = ('user', 'full_name', 'bio', 'image_url')
 
 
 class Profile(ViewSet):
