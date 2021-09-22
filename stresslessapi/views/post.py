@@ -27,7 +27,7 @@ class PostSerializer(serializers.ModelSerializer):
         model = Post
         fields = ('id', 'app_user', 'title', 'content',
             'image_url', 'publication_date', 'owner',
-            'comment_count', 'reactions', 'reactions_count')
+            'comment_count', 'reactions')
         depth = 1
 
 

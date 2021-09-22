@@ -1,4 +1,5 @@
 from django.db import models
+from stresslessapi.models.reaction import Reaction
 
 
 class Post(models.Model):
@@ -27,11 +28,10 @@ class Post(models.Model):
     def comment_count(self, value):
         self.__comment_count = value
 
-    @property
-    def reactions_count(self):
-        return self.__reactions_count
+    # @property
+    # def reactions_count(self):
+    #     return self.__reactions_count
 
-    @reactions_count.setter
-    def reactions_count(self, value):
-        self.__reactions_count = value
-
+    # @reactions_count.setter
+    # def reactions_count(self, value):
+    #     self.__reactions_count = value
