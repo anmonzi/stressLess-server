@@ -18,25 +18,7 @@ class MotivationSerializer(serializers.ModelSerializer):
 
 class MotivationView(ViewSet):
     """App motivation viewset"""
-
-    def list(self, request):
-        """Handle GET requests to motivation data table"""
-        # verify user and who is making request
-        app_user = AppUser.objects.get(user=request.auth.user)
-
-        motivations = Motivation.objects.all()
-
-        if "sortBy" in request.query_params:
-            attr = request.query_params["sortBy"]
-            if attr == "date":
-                motivation = motivations.order_by('-id')[0]
-                serializer = MotivationSerializer(motivation, many=False, context={'request': request})
-                return Response(serializer.data)
-
-        serializer = MotivationSerializer(motivations, many=True, context={'request': request})
-        return Response(serializer.data)
-
-
+ 
     def create(self, request):
         """Handle POST operations for new motivations"""
 
@@ -57,6 +39,21 @@ class MotivationView(ViewSet):
         except ValidationError as ex:
             return Response({"reason": ex.message}, status=status.HTTP_400_BAD_REQUEST)
 
+    def retrieve(self, request, pk=None):
+        """Handle GET request for single motivation"""
+        try:
+            # `pk` is a parameter to this function, and
+            # Django parses it from the URL route parameter
+            #   http://localhost:8000/priorities/2
+            #
+            # The `2` at the end of the route becomes `pk`
+            motivation = Motivation.objects.get(pk=pk)
+            serializer = MotivationSerializer(motivation, context={'request': request})
+            return Response(serializer.data)
+        except Motivation.DoesNotExist as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as ex:
+            return HttpResponseServerError(ex)
 
     def update(self, request, pk=None):
         """Handle PUT request sent for a motivation"""
@@ -88,3 +85,22 @@ class MotivationView(ViewSet):
 
         except Exception as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+    def list(self, request):
+        """Handle GET requests to motivation data table"""
+        # verify user and who is making request
+        app_user = AppUser.objects.get(user=request.auth.user)
+
+        motivations = Motivation.objects.all()
+
+        if "sortBy" in request.query_params:
+            attr = request.query_params["sortBy"]
+            if attr == "date":
+                motivation = motivations.order_by('-id')[0]
+                serializer = MotivationSerializer(motivation, many=False, context={'request': request})
+                return Response(serializer.data)
+
+        serializer = MotivationSerializer(motivations, many=True, context={'request': request})
+        return Response(serializer.data)
+
