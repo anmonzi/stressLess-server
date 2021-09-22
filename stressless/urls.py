@@ -35,7 +35,7 @@ router.register(r'comments', CommentView, 'comment')
 router.register(r'users', UserView, 'user')
 router.register(r'appusers', AppUserView, 'app_user')
 router.register(r'resources', ResourceView, 'resource')
-router.register(r'motivation', MotivationView, 'motivation')
+router.register(r'motivations', MotivationView, 'motivation')
 
 
 urlpatterns = [

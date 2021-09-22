@@ -24,10 +24,16 @@ class MotivationView(ViewSet):
         # verify user and who is making request
         app_user = AppUser.objects.get(user=request.auth.user)
 
-        motivations = Motivation.objects.all().order_by('-id')[0]
+        motivations = Motivation.objects.all()
 
+        if "sortBy" in request.query_params:
+            attr = request.query_params["sortBy"]
+            if attr == "date":
+                motivation = motivations.order_by('-id')[0]
+                serializer = MotivationSerializer(motivation, many=False, context={'request': request})
+                return Response(serializer.data)
 
-        serializer = MotivationSerializer(motivations, many=False, context={'request': request})
+        serializer = MotivationSerializer(motivations, many=True, context={'request': request})
         return Response(serializer.data)
 
 
@@ -50,3 +56,35 @@ class MotivationView(ViewSet):
             return Response(serializer.data)
         except ValidationError as ex:
             return Response({"reason": ex.message}, status=status.HTTP_400_BAD_REQUEST)
+
+
+    def update(self, request, pk=None):
+        """Handle PUT request sent for a motivation"""
+
+        # verify user and who is making put request
+        app_user = AppUser.objects.get(user=request.auth.user)
+
+        # grab post to be updated by pk
+        motivation = Motivation.objects.get(pk=pk)
+        motivation.app_user = app_user
+        motivation.title = request.data["title"]
+        motivation.content = request.data["content"]
+        motivation.created_on = request.data["createdOn"]
+
+        motivation.save()
+
+        return Response({}, status=status.HTTP_204_NO_CONTENT)
+
+
+    def destroy(self, request, pk=None):
+        """Handle DELETE requests for a single motivation"""
+        try:
+            motivation = Motivation.objects.get(pk=pk)
+            motivation.delete()
+            return Response({}, status=status.HTTP_204_NO_CONTENT)
+
+        except Motivation.DoesNotExist as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+
+        except Exception as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
