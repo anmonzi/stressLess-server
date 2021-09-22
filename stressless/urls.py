@@ -17,11 +17,11 @@ from django.contrib import admin
 from django.conf.urls import include
 from django.urls import path
 from rest_framework import routers
-from stresslessapi.views import (login_user, register_user,
-    Profile, PriorityView,
-    ReflectionView, PostView,
-    CommentView, ReactionView,
-    PostReactionView)
+from stresslessapi.views import (
+    login_user, register_user, Profile,
+    PriorityView, ReflectionView, PostView,
+    CommentView, UserView, AppUserView, ResourceView,
+    MotivationView, ReactionView, PostReactionView)
 
 
 
@@ -34,6 +34,10 @@ router.register(r'posts', PostView, 'post')
 router.register(r'comments', CommentView, 'comment')
 router.register(r'reactions', ReactionView, 'reaction')
 router.register(r'post_reactions', PostReactionView, 'post_reaction')
+router.register(r'users', UserView, 'user')
+router.register(r'appusers', AppUserView, 'app_user')
+router.register(r'resources', ResourceView, 'resource')
+router.register(r'motivation', MotivationView, 'motivation')
 
 
 urlpatterns = [

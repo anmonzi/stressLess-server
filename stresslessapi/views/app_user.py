@@ -10,7 +10,8 @@ class UserSerializer(serializers.ModelSerializer):
     """JSON serializer for users"""
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'email', 'date_joined')
+        fields = ('username', 'email', 'is_active', 'date_joined',
+            'last_login', 'is_staff')
 
 
 class AppUserSerializer(serializers.ModelSerializer):
@@ -19,21 +20,19 @@ class AppUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AppUser
-        fields = ('user', 'full_name', 'bio', 'image_url')
+        fields = ('user', 'full_name')
 
 
-class Profile(ViewSet):
-    """App user profile information"""
+class AppUserView(ViewSet):
+    """App user information"""
 
     def list(self, request):
-        """Handle GET requests to profile resource"""
+        """Handle GET requests to app user resource"""
 
+        # verify user and who is making request
         app_user = AppUser.objects.get(user=request.auth.user)
 
-        app_user = AppUserSerializer(app_user, many=False, context={'request': request})
+        users = AppUser.objects.all()
 
-        # Manually constructing the JSON structure returned in response
-        profile = {}
-        profile['app_user'] = app_user.data
-
-        return Response(profile)
+        serializer = AppUserSerializer(users, many=True, context={'request': request})
+        return Response(serializer.data)

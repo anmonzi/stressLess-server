@@ -6,3 +6,9 @@ from .post import PostView
 from .comment import CommentView
 from .reaction import ReactionView
 from .post_reaction import PostReactionView
+from .user import UserView
+from .app_user import AppUserView
+from .resource import ResourceView
+from .motivation import MotivationView
+
+
