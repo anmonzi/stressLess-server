@@ -8,21 +8,21 @@ from rest_framework import status
 from stresslessapi.models import PostReaction, Reaction, AppUser, Post
 
 
-class ReactionSerializer(serializers.ModelSerializer):
-    """JSON serializer for reaction"""
+# class ReactionSerializer(serializers.ModelSerializer):
+#     """JSON serializer for reaction"""
 
-    class Meta:
-        model = Reaction
-        fields = ('id', 'label', 'image_url')
+#     class Meta:
+#         model = Reaction
+#         fields = ('id', 'label', 'image_url')
 
 class PostReactionSerializer(serializers.ModelSerializer):
     """JSON serializer for post reaction join table"""
 
-    reaction = ReactionSerializer(many=False)
+    # reaction = ReactionSerializer(many=False)
 
     class Meta:
         model = PostReaction
-        fields = ('id', 'app_user', 'post', 'reaction',)
+        fields = ('id', 'app_user', 'post',)
 
 
 class PostReactionView(ViewSet):
@@ -36,7 +36,7 @@ class PostReactionView(ViewSet):
         post_reaction = PostReaction()
         post_reaction.app_user = app_user
         post_reaction.post = Post.objects.get(pk=request.data["post"])
-        post_reaction.reaction = Reaction.objects.get(pk=request.data["reaction"])
+        # post_reaction.reaction = Reaction.objects.get(pk=request.data["reaction"])
 
         try:
             post_reaction.save()

@@ -27,7 +27,8 @@ class PostSerializer(serializers.ModelSerializer):
         model = Post
         fields = ('id', 'app_user', 'title', 'content',
             'image_url', 'publication_date', 'owner',
-            'comment_count', 'reactions')
+            'comment_count', 'favorited', 'reactions',
+            'reactions_count')
         depth = 1
 
 
@@ -122,7 +123,14 @@ class PostView(ViewSet):
                                         default=False,
                                         output_field=BooleanField()
                                             ),
+                                        favorited=Case(
+                                        When(app_user=app_user, then=True),
+                                        default=False,
+                                        output_field=BooleanField(),
+                                        ),
                                         reactions_count=Count('reactions'))
+        for post in posts:
+            post.favorited = app_user in post.reactions.all()
 
         serializer = PostSerializer(
             posts, many=True, context={'request': request})
