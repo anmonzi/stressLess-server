@@ -127,3 +127,32 @@ class PostView(ViewSet):
         serializer = PostSerializer(
             posts, many=True, context={'request': request})
         return Response(serializer.data)
+
+
+    @action(methods=['post', 'delete'], detail=True)
+    def favorite_post(self, request, pk=None):
+        """Managing favoriting a post"""
+        app_user = AppUser.objects.get(user=request.auth.user)
+
+        try:
+            post = Post.objects.get(pk=pk)
+        except Post.DoesNotExist:
+            return Response(
+                {'message': 'Post does not exist.'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        if request.method == "POST":
+            try:
+                post.reactions.add(app_user)
+                return Response({}, status=status.HTTP_201_CREATED)
+            except Exception as ex:
+                return Response({'message': ex.args[0]})
+
+        # User wants to unfavorite a post
+        elif request.method == "DELETE":
+            try:
+                post.reactions.remove(app_user)
+                return Response(None, status=status.HTTP_204_NO_CONTENT)
+            except Exception as ex:
+                return Response({'message': ex.args[0]})
